@@ -27,6 +27,8 @@ export async function waController(req, res) {
         await wbm.end();
 
         await fsExtra.remove(tmpPath);
+
+        alert('messages send successfully');
       })
       .catch((err) => {
         console.log('Error in generating QR code: ', err);
