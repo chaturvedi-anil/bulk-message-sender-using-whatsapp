@@ -3,64 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send messages</title>
-    <style>
-        body{
-            background-color: #414141;
-            color:#fff;
-            text-align: center;
-        }
-    </style>
+    <title>Send Bulk WhatsApp Messages</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Send bulk whatsapp messages (after submition scan the qr code with your whatsapp app)</h1>
-    <form id="numberForm">
-        <label for="numbers">Enter numbers (with country code, without + sign, comma-separated):</label><br>
-        <input type="text" name="numbers" id="numbers" required><br>
-        <label for="message">Enter message </label><br>
-        <input type="text" name="message" id="message" required><br>
-        <input type="submit" value="Submit">
-    </form>
+    <header>
+        <h1>Send Bulk WhatsApp Messages</h1>
+    </header>
+    <main>
+        <section class="instructions">
+            <h2><strong>Instructions</strong></h2>
+            <ul>
+                <li>Enter numbers (with country code, without + sign, separated by commas) like: 911234567890</li>
+                <li>Enter your message to send</li>
+                <li>Click on the "Send" button</li>
+                <li>After clicking "Send," scan the visible QR code using WhatsApp Web from your mobile app</li>
+            </ul>
+        </section>
+        <section class="form-container">
+            <h2>Enter Numbers and Message</h2>
+            <form id="numberForm" action="/send" method="POST">
+                <div class="input-container">
+                    <label for="numbers">Enter Numbers</label>
+                    <input type="text" name="numbers" id="numbers" required>
+                </div>
+                <div class="input-container">
+                    <label for="message">Enter Message</label>
+                    <input type="text" name="message" id="message" required>
+                </div>
+                <button type="submit">Send Messages</button>
+            </form>
+        </section>
+    </main>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const numberForm = document.getElementById("numberForm");
-
-            numberForm.addEventListener("submit", async function (event) {
-                event.preventDefault();
-
-                // Get the input value as a comma-separated string
-                const inputField = document.getElementById("numbers");
-                const message = document.getElementById('message').value;
-                console.log("message :", message);
-                const inputString = inputField.value;
-
-                // Split the input string into an array of numbers
-                const numberArray = inputString.split(",").map((numStr) => parseFloat(numStr.trim()));
-
-                // Create an object to send as a POST request
-                const data = { numbers: numberArray , message: message};
-
-                // Make a POST request to your server
-                try {
-                    const response = await fetch("/send-message", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(data),
-                    });
-
-                    if (response.ok) {
-                        console.log("Data sent successfully");
-                    } else {
-                        console.error("Failed to send data");
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                }
-            });
-        });
-    </script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

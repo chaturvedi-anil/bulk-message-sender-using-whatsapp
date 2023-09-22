@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
+app.use(express.static('./assets'));
 // Set the view engine to EJS and specify the views folder
 app.set('view engine', 'ejs');
 app.set('views', './views'); // Assuming your EJS templates are in the './views' folder
